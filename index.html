@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="http://douchaoyang.com/public/reset.pc.css">
+<title>rotary</title>
+<style type="text/css">
+.box{
+	margin: 0 auto; 
+	width: 535px; 
+	height: 535px; 
+	overflow: hidden; 
+	position: relative;
+}
+#disk{
+	width: 535px; 
+	height: 535px; 
+	background: url(disk.png) no-repeat center center;
+}
+#start{
+	display: block; 
+	width: 220px; 
+	height: 220px; 
+	background: url(arrow.png) no-repeat 0 0; 
+	position: absolute; 
+	top: 0; 
+	right: 0; 
+	bottom: 0; 
+	left: 0; 
+	margin: auto;
+}
+</style>
+</head>
+<body>
+	<div class="box">
+		<div id="disk"></div>
+		<a id="start"></a>
+	</div>
+	<script type="text/javascript" src="http://www.douchaoyang.com/public/jquery.min.js"></script>
+	<script type="text/javascript" src="rotary.min.js"></script>
+	<script type="text/javascript">
+	/*按照轮盘或者指针旋转的方向编辑奖品列表
+	 *如为轮盘转动，列表应逆时针排列
+	 *如为指针转动，列表应顺时针排列
+	*/
+	var award=[
+		"星盘*1",
+		"星小型资源箱子*1",
+		"强化石*1",
+		"突破石*1",
+		"初级经验书*2",
+		"5分钟通用加速*10",
+		"初级经验书*2",
+		"初级经验书*2"
+	];
+	var rotary = new Rotary({
+		item:"#start", // 需要转动的元素
+		total:8, // 奖品数量
+		loop:6, // 转的圈数
+		time:6, // 总耗时
+		offdeg:-22.5, // 偏移角度
+		isOut:false // 是否为轮盘转动
+	});
+	$("#start").click(function() {
+		var _this = this;
+		var n=Math.floor(Math.random()*8);
+		/*此处请求服务器数据*/	
+		rotary.run(n+1,function(){
+			alert("恭喜您获得了"+award[n]+"!");
+		});
+	});
+	</script>
+</body>
+</html>
